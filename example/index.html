@@ -2,18 +2,56 @@
 <html ng-app="app">
     <head>
         <!-- Include the necessary libraries -->
-        <script src="node_modules/angular/angular.min.js"></script>
-        <script src="node_modules/draggabilly/dist/draggabilly.pkgd.min.js"></script>
-        <script src="node_modules/packery/dist/packery.pkgd.min.js"></script>
+        <script src="/node_modules/angular/angular.min.js"></script>
+        <script src="/node_modules/draggabilly/dist/draggabilly.pkgd.min.js"></script>
+        <script src="/node_modules/packery/dist/packery.pkgd.min.js"></script>
 
         <!-- Include the packery-angular script -->
-        <script src="node_modules/packery-angular/dist/packery-angular.js"></script>
+        <script src="/dist/packery-angular.js"></script>
 
         <script src="app.js"></script>
+        <link rel="stylesheet" href="styles.css">
+
+        <style>
+
+        </style>
     </head>
-    <body ng-controller="AppController">
-        <pa-packery pa-options="options">
-            <pa-packery-item class="pa-item" ng-repeat="item in items" ng-style="item.style">{{item.content}}</pa-packery-item>
-        </pa-packery>
+    <body ng-controller="AppController as vm">
+        
+        <div class="alerts">
+            <h2>ALERTS</h2>
+            <pa-packery pa-options="vm.alertOptions" id="grid">
+                <pa-packery-item class="grid-sizer"></pa-packery-item>
+                
+                <pa-packery-item ng-click="vm.addAlert()" class="pa-stamp">
+                    <div>
+                        ADD
+                    </div>
+                </pa-packery-item>
+                <pa-packery-item class="grid-item" ng-repeat="item in vm.alerts" ng-style="item.style">
+                    <div ng-click="vm.removeAlert($index)">X</div>
+                    <div>
+                        {{item.content}}
+                    </div>
+                </pa-packery-item>
+            </pa-packery>
+        </div>
+        
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="widgets">
+            <h2>WIDGETS</h2>
+            <pa-packery pa-options="vm.widgetOptions">
+                <pa-packery-item class="pa-item" ng-repeat="item in vm.widgets" ng-style="item.style">
+                    <div ng-click="vm.removeWidget($index)">X</div>
+                    <div>
+                        {{item.content}}
+                    </div>
+                </pa-packery-item>
+            </pa-packery>
+        </div>
     </body>
 </html>

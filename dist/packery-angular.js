@@ -360,7 +360,7 @@
                      * @param {Object} element The `packery-item` element that has been destroyed
                      */
                     $scope.$emit($paEvents.ITEM.DESTROYED, hash, self.packery, element);
-                    refresh();
+                    if ($scope.options.refreshOnRemove) refresh();
                 }
             });
         }
@@ -447,7 +447,12 @@
 
                 if ($scope.draggabilly.isDraggable) {
                     angular.forEach(children, function (child) {
-                        registerDraggableItem(child);
+                        if (child.className == 'pa-stamp') {
+                            // THE FIXED ITEM IS DRAGGABLE - IT DOESN'T WORK 
+                            return;
+                        } else {
+                            registerDraggableItem(child);
+                        }    
                     });
                 }
             }
@@ -488,6 +493,8 @@
                      * @param {Object} items The item broadcasted from the `Packery` event
                      */
                     $scope.$emit($paEvents.DRAGGED, hash, self.packery, item);
+                    // Workaround to fix overlapp on 'stamp' item
+                    // refresh();
                 });
                 self.packery.on($paEvents.PACKERY.FITTED, function (item) {
                     /**
@@ -542,7 +549,17 @@
                     self.packery.layout();
                 });
             });
+        }        
+
+        function fit(element) {
+            initialized.then(function () {
+                $timeout(function () {
+                    self.packery.fit(element, 0, 0);
+                });
+            });
         }
+
+
     }
 
     /**

@@ -1,0 +1,38 @@
+* {
+	box-sizing: border-box;
+}
+
+.pa-item {
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	background-color: black;
+	color: white
+}
+
+.pa-stamp {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: orange;
+}
+
+#grid {
+	width: 100% !important;
+}
+/* fluid 5 columns */
+.grid-sizer,
+.pa-stamp,
+.grid-item { width: 16.66%; }
+
+.grid-item, .pa-stamp { 
+  height: 200px;
+  background: #C09;
+  border: 2px solid hsla(0, 0%, 0%, 0.5);
+}
+
+.pa-stamp { background-color: purple; }
+/* 2 columns wide */
+.grid-item--width2 { width: 40%; }
+
+.alerts .pa-item {}
